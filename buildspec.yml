@@ -26,7 +26,7 @@ phases:
     commands:
       - echo Post-build phase started
       # Assuming the .war file is generated in the target directory.
-      - mv target/*.war
+      - mv target/*.war $CODEBUILD_SRC_DIR
 
 artifacts:
   files:

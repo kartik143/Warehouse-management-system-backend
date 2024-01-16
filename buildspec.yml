@@ -6,9 +6,12 @@ phases:
     runtime-versions:
       java: corretto8
     commands:
-      - echo Installing Maven
-      - yum update -y
-      - yum install -y maven
+      - echo Installing Maven 3.6.3
+      - wget https://archive.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
+      - tar zxvf apache-maven-3.6.3-bin.tar.gz
+      - export M2_HOME=$PWD/apache-maven-3.6.3
+      - export PATH=$M2_HOME/bin:$PATH
+      - mvn -version # to check the correct version of Maven is installed
   pre_build:
     commands:
       - echo Pre-build phase started

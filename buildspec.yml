@@ -32,7 +32,7 @@ phases:
 
 artifacts:
   files:
-    - my-warehouse-app-1.0.0.war
+    - ROOT.war
   discard-paths: yes
   name: my-warehouse-app-$(date +%Y-%m-%d)
 

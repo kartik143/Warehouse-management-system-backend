@@ -12,7 +12,7 @@ phases:
       - echo Build completed successfully
 artifacts:
   files:
-    - target/backend*/*
+    - target/	codepipeline*/*
   discard-paths: yes
 
 cache:

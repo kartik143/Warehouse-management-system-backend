@@ -1,38 +1,39 @@
-
 version: 0.2
 
 phases:
   install:
-    runtime-versions:
-      java: corretto8
     commands:
       - echo Installing Maven 3.6.3
       - wget https://archive.apache.org/dist/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
       - tar zxvf apache-maven-3.6.3-bin.tar.gz
       - export M2_HOME=$PWD/apache-maven-3.6.3
       - export PATH=$M2_HOME/bin:$PATH
-      - mvn -version # to check the correct version of Maven is installed
+      - mvn -version
   pre_build:
     commands:
       - echo Pre-build phase started
-      - echo Installing project dependencies
-      - mvn clean install -DskipTests
+      - mvn clean
   build:
     commands:
       - echo Build phase started
       - mvn package -DskipTests
-      - echo Build completed on `date`
   post_build:
     commands:
       - echo Post-build phase started
-      # Assuming the .war file is generated in the target directory.
-      - mv target/*.war $CODEBUILD_SRC_DIR
+      - |
+        if ls target/my-warehouse-app-1.0.0.war 1> /dev/null 2>&1; then
+          echo "WAR file found."
+          mv target/my-warehouse-app-1.0.0.war $CODEBUILD_SRC_DIR
+        else
+          echo "WAR file not found."
+          exit 1
+        fi
 
 artifacts:
   files:
-    - target/*.war
+    - my-warehouse-app-1.0.0.war
   discard-paths: yes
-  name: backend-$(date +%Y-%m-%d)
+  name: my-warehouse-app-$(date +%Y-%m-%d)
 
 cache:
   paths:

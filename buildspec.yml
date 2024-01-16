@@ -23,7 +23,8 @@ phases:
       - |
         if ls target/my-warehouse-app-1.0.0.war 1> /dev/null 2>&1; then
           echo "WAR file found."
-          mv target/my-warehouse-app-1.0.0.war $CODEBUILD_SRC_DIR
+          mv target/my-warehouse-app-1.0.0.war target/ROOT.war
+          mv target/ROOT.war  $CODEBUILD_SRC_DIR
         else
           echo "WAR file not found."
           exit 1
